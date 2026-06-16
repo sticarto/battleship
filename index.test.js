@@ -50,4 +50,28 @@ describe('My Gameboard', () => {
 
     })
 
+    describe('receiveAttack', () => {
+        test('attack missed and left a mark', () => {
+            myGameboard.receiveAttack(2, 4);
+            expect(myGameboard.board[2][4]).toMatch('X');
+        })
+
+        test('attack hit a ship and updated hits on object', () => {
+            myGameboard.placeShip(2,4);
+            myGameboard.receiveAttack(2,4);
+
+            expect(myGameboard.board[2][4].hits).toBe(1);
+            expect(myGameboard.board[2][5].hits).toBe(1);
+
+        })
+
+        // test('attack hit a ship and left an O mark', () => {
+        //     myGameboard.placeShip(2,4);
+        //     myGameboard.receiveAttack(2,4);
+
+        //     expect(myGameboard.board[2][4]).toMatch('O');
+        // })
+
+    })
+
 })

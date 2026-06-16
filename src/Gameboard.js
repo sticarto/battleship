@@ -32,7 +32,14 @@ class Gameboard {
     }
     
     receiveAttack(x, y) {
-
+        target = this.board[x][y]
+        if (target == "") {
+            this.board[x][y] = "X";
+        }
+        if (target instanceof Ship) {
+            target.hit();
+            // this.board[x][y] = "O";
+        }
     }
 
     reportShipStatus() {
