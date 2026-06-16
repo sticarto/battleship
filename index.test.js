@@ -16,8 +16,38 @@ describe ('My ship', () => {
 
 })
 
-// Just checking that the 2D array is real
-test('Gameboard is created with 10x10 spaces', () => {
+
+describe('My Gameboard', () => {
     let myGameboard = new Gameboard();
-    expect(myGameboard.board[9][9]).toBe("");
+    
+    // Just checking that the 2D array is real
+    test('Gameboard is created with 10x10 spaces', () => {
+        expect(myGameboard.board[9][9]).toBe("");
+    })
+
+    test('Has placed a horizontal ship of length 3 at (1,1)', () => {
+        myGameboard.placeShip(1,1);
+        expect(myGameboard.board[1][1]).toBeInstanceOf(Ship);
+        expect(myGameboard.board[1][2]).toBeInstanceOf(Ship);
+        expect(myGameboard.board[1][3]).toBeInstanceOf(Ship);
+    })
+
+    test('Has placed a vertical ship of length 3 at (1,1)', () => {
+        myGameboard.placeShip(1,1, true);
+        expect(myGameboard.board[1][1]).toBeInstanceOf(Ship);
+        expect(myGameboard.board[2][1]).toBeInstanceOf(Ship);
+        expect(myGameboard.board[3][1]).toBeInstanceOf(Ship);
+    })
+
+    test('Does not allow placed ship of length 3 to go out of bounds', () => {
+        myGameboard.placeShip(1,8);
+        expect(myGameboard.board[1][10]).toBeUndefined();
+        expect(myGameboard.board[1][7]).toBeInstanceOf(Ship);
+        
+        myGameboard.placeShip(8,1);
+        expect(myGameboard.board[7][1]).toBeInstanceOf(Ship);
+        expect(myGameboard.board[10]).toBeUndefined(); // Better way to test row doesn't exist?
+
+    })
+
 })

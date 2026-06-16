@@ -13,14 +13,25 @@ class Gameboard {
 
     }
 
-    receiveAttack(x, y) {
+    placeShip(x, y, isVertical = false) {
+        const ship = new Ship(3);
+        const threshold = this.board.length - ship.length; // Keeps ships from placing out of bounds
+        const coordinateY = y > threshold ? threshold : y;
+        const coordinateX = x > threshold ? threshold : x;
+        
 
+        if (isVertical) {
+            for (let i = 0; i < ship.length ; i++) {
+                this.board[coordinateX + i][coordinateY] = ship;
+            }
+        } else {
+            for (let i = 0; i < ship.length ; i++) {
+                this.board[coordinateX][coordinateY + i] = ship;
+            }
+        }
     }
-
-    // I hate that I have to figure out what to do lol.
-    // IDK if this should be included or nah.
-    // Odin Project, tell me what to do!!!
-    placeShip(x, y) {
+    
+    receiveAttack(x, y) {
 
     }
 
