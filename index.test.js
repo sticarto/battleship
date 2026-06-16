@@ -1,4 +1,5 @@
 import { Ship } from "./src/Ship";
+import { Gameboard } from "./src/Gameboard";
 
 describe ('My ship', () => {
     
@@ -13,4 +14,10 @@ describe ('My ship', () => {
         expect(myShip.isSunk()).toBeTruthy();
     })
 
+})
+
+// Just checking that the 2D array is real
+test('Gameboard is created with 10x10 spaces', () => {
+    let myGameboard = new Gameboard();
+    expect(myGameboard.board[9][9]).toBe("");
 })
