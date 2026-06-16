@@ -10,6 +10,7 @@ class Gameboard {
                 this.board[row][col] = "";
             }
         }
+        this.ships = [];
 
     }
 
@@ -29,6 +30,8 @@ class Gameboard {
                 this.board[coordinateX][coordinateY + i] = ship;
             }
         }
+
+        this.ships.push(ship);
     }
     
     receiveAttack(x, y) {
@@ -42,8 +45,8 @@ class Gameboard {
         }
     }
 
-    reportShipStatus() {
-
+    isEveryShipActive () {
+        return this.ships.every(ship => ship.isSunk() === false)
     }
 }
 

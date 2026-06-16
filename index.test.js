@@ -74,4 +74,20 @@ describe('My Gameboard', () => {
 
     })
 
+    test('report all ships are active', ()=> {
+        myGameboard.placeShip(1,1);
+        myGameboard.placeShip(4,2,true);
+
+        expect(myGameboard.isEveryShipActive()).toBeTruthy()
+    })
+    
+    test('report all ships are destroyed', () => {
+        myGameboard.placeShip(1,1);
+        myGameboard.receiveAttack(1,1);
+        myGameboard.receiveAttack(1,2);
+        myGameboard.receiveAttack(1,3);
+
+        expect(myGameboard.isEveryShipActive()).toBeFalsy()
+    })
+
 })
