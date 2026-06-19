@@ -51,9 +51,9 @@ class Gameboard {
         if (target == "") {
             this.setCell(x, y, "X")
         }
-        if (target instanceof Ship) {
+        else if (target instanceof Ship) {
             target.hit();
-            // this.board[x][y] = "O";
+            this.setCell(x, y, "O");
         }
     }
 
