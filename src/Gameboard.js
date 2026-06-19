@@ -14,6 +14,18 @@ class Gameboard {
 
     }
 
+    // This is technically better for the battle ship grid since y = row, not x
+    // and these helper functions will save me from sanity... according to google.
+    getCell(x, y) {
+        if (x >= this.board.length || y >= this.board.length) return;
+
+        return this.board[y][x]; // y = row
+    }
+
+    setCell(x, y, value) {
+        this.board[y][x] = value;
+    }
+
     placeShip(x, y, isVertical = false) {
         const ship = new Ship(3);
         const threshold = this.board.length - ship.length; // Keeps ships from placing out of bounds
@@ -23,11 +35,11 @@ class Gameboard {
 
         if (isVertical) {
             for (let i = 0; i < ship.length ; i++) {
-                this.board[coordinateX + i][y] = ship;
+                this.setCell(x, coordinateY + i, ship);
             }
         } else {
             for (let i = 0; i < ship.length ; i++) {
-                this.board[x][coordinateY + i] = ship;
+                this.setCell(coordinateX + i, y, ship);
             }
         }
 
@@ -35,9 +47,9 @@ class Gameboard {
     }
     
     receiveAttack(x, y) {
-        target = this.board[x][y]
+        target = this.getCell(x, y)
         if (target == "") {
-            this.board[x][y] = "X";
+            this.setCell(x, y, "X")
         }
         if (target instanceof Ship) {
             target.hit();

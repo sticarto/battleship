@@ -22,46 +22,48 @@ describe('My Gameboard', () => {
     
     // Just checking that the 2D array is real
     test('Gameboard is created with 10x10 spaces', () => {
-        expect(myGameboard.board[9][9]).toBe("");
+        expect(myGameboard.getCell(9,9)).toBe("");
     })
 
     test('Has placed a horizontal ship of length 3 at (1,1)', () => {
         myGameboard.placeShip(1,1);
-        expect(myGameboard.board[1][1]).toBeInstanceOf(Ship);
-        expect(myGameboard.board[1][2]).toBeInstanceOf(Ship);
-        expect(myGameboard.board[1][3]).toBeInstanceOf(Ship);
+        expect(myGameboard.getCell(1, 1)).toBeInstanceOf(Ship);
+        expect(myGameboard.getCell(2, 1)).toBeInstanceOf(Ship);
+        expect(myGameboard.getCell(3, 1)).toBeInstanceOf(Ship);
     })
 
     test('Has placed a vertical ship of length 3 at (1,1)', () => {
         myGameboard.placeShip(1,1, true);
-        expect(myGameboard.board[1][1]).toBeInstanceOf(Ship);
-        expect(myGameboard.board[2][1]).toBeInstanceOf(Ship);
-        expect(myGameboard.board[3][1]).toBeInstanceOf(Ship);
+        expect(myGameboard.getCell(1,1)).toBeInstanceOf(Ship);
+        expect(myGameboard.getCell(1,2)).toBeInstanceOf(Ship);
+        expect(myGameboard.getCell(1,3)).toBeInstanceOf(Ship);
     })
 
     test('Does not allow placed ship of length 3 to go out of bounds', () => {
-        myGameboard.placeShip(1,8);
-        expect(myGameboard.board[1][10]).toBeUndefined();
-        expect(myGameboard.board[1][7]).toBeInstanceOf(Ship);
+        myGameboard.placeShip(1,8, true);
+        expect(myGameboard.getCell(1, 10)).toBeUndefined();
+        expect(myGameboard.getCell(1, 7)).toBeInstanceOf(Ship);
+
         
-        myGameboard.placeShip(8,1, true);
-        expect(myGameboard.board[7][1]).toBeInstanceOf(Ship);
-        expect(myGameboard.board[10]).toBeUndefined(); // Better way to test row doesn't exist?
+        myGameboard.placeShip(8,1);
+        expect(myGameboard.getCell(7,1)).toBeInstanceOf(Ship);
+        expect(myGameboard.getCell(10, 1)).toBeUndefined();
 
     })
 
     describe('receiveAttack', () => {
         test('attack missed and left a mark', () => {
             myGameboard.receiveAttack(2, 4);
-            expect(myGameboard.board[2][4]).toMatch('X');
+            // expect(myGameboard.board[2][4]).toMatch('X');
+            expect(myGameboard.getCell(2, 4)).toMatch('X');
         })
 
         test('attack hit a ship and updated hits on object', () => {
             myGameboard.placeShip(2,4);
             myGameboard.receiveAttack(2,4);
 
-            expect(myGameboard.board[2][4].hits).toBe(1);
-            expect(myGameboard.board[2][5].hits).toBe(1);
+            expect(myGameboard.getCell(2,4).hits).toBe(1);
+            expect(myGameboard.getCell(3,4).hits).toBe(1);
 
         })
 
@@ -84,8 +86,8 @@ describe('My Gameboard', () => {
     test('report all ships are destroyed', () => {
         myGameboard.placeShip(1,1);
         myGameboard.receiveAttack(1,1);
-        myGameboard.receiveAttack(1,2);
-        myGameboard.receiveAttack(1,3);
+        myGameboard.receiveAttack(2,1);
+        myGameboard.receiveAttack(3,1);
 
         expect(myGameboard.isEveryShipActive()).toBeFalsy()
     })
