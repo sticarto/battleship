@@ -44,7 +44,7 @@ describe('My Gameboard', () => {
         expect(myGameboard.board[1][10]).toBeUndefined();
         expect(myGameboard.board[1][7]).toBeInstanceOf(Ship);
         
-        myGameboard.placeShip(8,1);
+        myGameboard.placeShip(8,1, true);
         expect(myGameboard.board[7][1]).toBeInstanceOf(Ship);
         expect(myGameboard.board[10]).toBeUndefined(); // Better way to test row doesn't exist?
 

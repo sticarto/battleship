@@ -23,11 +23,11 @@ class Gameboard {
 
         if (isVertical) {
             for (let i = 0; i < ship.length ; i++) {
-                this.board[coordinateX + i][coordinateY] = ship;
+                this.board[coordinateX + i][y] = ship;
             }
         } else {
             for (let i = 0; i < ship.length ; i++) {
-                this.board[coordinateX][coordinateY + i] = ship;
+                this.board[x][coordinateY + i] = ship;
             }
         }
 
