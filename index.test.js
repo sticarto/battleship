@@ -1,5 +1,7 @@
 import { Ship } from "./src/Ship";
 import { Gameboard } from "./src/Gameboard";
+import { Player } from "./src/Player";
+import { experiments } from "webpack";
 
 describe ('My ship', () => {
     
@@ -84,4 +86,14 @@ describe('My Gameboard', () => {
         expect(myGameboard.isEveryShipActive()).toBeFalsy()
     })
 
+})
+
+describe('Player', () => {
+    test('has access to its own gameboard', () => {
+        const player1 = new Player();
+        expect(player1.board).toBeInstanceOf(Gameboard);
+
+        player1.board.setCell(1, 2, 'X');
+        expect(player1.board.getCell(1,2)).toMatch('X');
+    })
 })
